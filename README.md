@@ -1,87 +1,97 @@
-<p align="center"><img src="http://infernojs.org/img/inferno.png" width="150px"></p>
-<p>&nbsp;</p>
+<p align="center"><a href="https://infernojs.org/" target="_blank"><img width="150" alt="Inferno" title="Inferno" src="https://user-images.githubusercontent.com/2021355/36063342-626d7ea8-0e84-11e8-84e1-f22bb3b8c4d5.png"></p>
 
 [![Build Status](https://img.shields.io/travis/infernojs/inferno/master.svg?style=flat-square)](https://travis-ci.org/infernojs/inferno/branches)
 [![Coverage Status](https://img.shields.io/coveralls/infernojs/inferno/master.svg?style=flat-square)](https://coveralls.io/github/infernojs/inferno?branch=master)
-[![Dependencies](https://img.shields.io/david/infernojs/inferno.svg?style=flat-square)](https://david-dm.org/infernojs/inferno)
-[![devDependency Status](https://david-dm.org/infernojs/inferno/dev-status.svg?style=flat-square)](https://david-dm.org/infernojs/inferno#info=devDependencies)
 [![MIT](https://img.shields.io/npm/l/inferno.svg?style=flat-square)](https://github.com/infernojs/inferno/blob/master/LICENSE.md)
-[![NPM Version](https://img.shields.io/npm/v/inferno.svg?style=flat-square)](https://www.npmjs.com/package/inferno)
+[![NPM](https://img.shields.io/npm/v/inferno.svg?style=flat-square)](https://www.npmjs.com/package/inferno)
 [![npm downloads](https://img.shields.io/npm/dm/inferno.svg?style=flat-square)](https://www.npmjs.org/package/inferno)
 [![Slack Status](https://inferno-slack.herokuapp.com/badge.svg)](https://inferno-slack.herokuapp.com/)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/inferno/dist/inferno.min.js?compression=gzip)](https://unpkg.com/inferno/dist/inferno.min.js)
+[![Backers on Open Collective](https://opencollective.com/inferno/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/inferno/sponsors/badge.svg)](#sponsors)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/LukeSheard.svg)](https://saucelabs.com/u/LukeSheard)
+Inferno is an insanely fast, React-like library for building high-performance user interfaces on both the client and server.
 
-Inferno is an insanely fast, `9kb` React-like library for building high-performance user interfaces on both the client and server.
+## Description
 
-To quote a member of the React core team at Facebook:
-> Inferno 1.0 is really well written. It's how I would've rewritten React. I'd recommend reading its source to learn.
+The main objective of the InfernoJS project is to provide the fastest possible **runtime** performance for web applications. Inferno excels at rendering real time data views or large DOM trees.
 
-Inferno aims to provide all the great benefits that React does, plus other great features for people already familiar with the React ecosystem, such as: lifecycle events on functional components, server side render streams, better real-world performance, lower memory consumption and faster parse/load times. Furthermore, Inferno allows people to switch their **existing React projects** to Inferno in a few lines of code using [`inferno-compat`](https://github.com/infernojs/inferno/tree/master/packages/inferno-compat).
+The performance is achieved through multiple optimizations, for example:
 
-For those not familiar with React, Inferno is a JavaScript library for building user interfaces in a **declarative** manner. Rather than working with MVC/MVVM style patterns, Inferno uses a **component-based** approach where data flows in one direction, making coding predictable, re-usable and highly testable. Based on the concept of *learn once, write anywhere*, Inferno doesn't impose any restrictions on how you create components. You literally write JavaScript to state how you'd like your UI to look – Inferno does all the rest. Inferno also renders content on the server via `inferno-server` and NodeJS, so you can write awesome UIs that get rendered full-stack.
+- Inferno's own [JSX plugin](https://github.com/infernojs/babel-plugin-inferno) creates monomorphic `createVNode` calls, instead of `createElement`
+- Inferno's diff process uses bitwise flags to memoize the shape of objects
+- Child nodes are normalized only when needed
+- Special JSX flags can be used during compile time to optimize runtime performance at application level
+- Many micro optimizations
 
-In terms of performance, Inferno is currently the **fastest** JavaScript UI library there is – both in benchmarks and actual real-world scenarios. It excels on the browser at initial page load, parse times, render times and update times. Inferno's server-side rendering is around 5x faster than React, around 3x faster than Angular 2 and around 1.5x faster than Preact and Vue.
-
-## But why?
-
-Inferno started as an idea two years ago, to see if a UI library could really improve the experience, battery, memory usage and performance on mobile devices. At the time we really struggled to get good performance on *any* UI library/framework – it simply wasn't happening, we spent a huge amount of time writing lots of vanilla JavaScript code and it did the job – but it was a mess.
-
-Since then, things haven't really improved much in the mobile space. Libraries have gotten smaller, but the time to parse a 2mb app can result in 5+ seconds time before the user can even see anything. Frameworks and libraries need to lose bloat, they need to care about performance. Developing on a MacBook Pro and seeing animations, routing, complex UIs instantly appear is *not* going to happen on an average mobile device (especially in emerging countries).
-
-Inferno proves that it is possible to be fast on mobile. Parse-time, load-time, rendering complex UIs and all the normal things you'd expect to just work. How Inferno does that is based on many factors, but ultimately Inferno's code is much better understood by modern JavaScript engines and can be highly optimised to perform far better than other libraries/frameworks.
-
-## Summary
+## Features
 
 - Component driven + one-way data flow architecture
-- One of the fastest front-end frameworks for rendering UI in the DOM
 - React-like API, concepts and component lifecycle events
-- Partial synthetic event system, providing delegation to certain events for better performance
+- Partial synthetic event system, normalizing events for better cross browser support
 - Inferno's [`linkEvent`](https://github.com/infernojs/inferno/blob/master/README.md#linkevent-package-inferno) feature removes the need to use arrow functions or binding event callbacks
-- Lightweight filesize of only 9kb
 - Isomorphic rendering on both client and server with `inferno-server`
-- Highly modular with very few opinions on how things should be done
 - Unlike React and Preact, Inferno has lifecycle events on functional components
-- Supports asynchronous component rendering using `requestIdleCallback`
 - Unlike Preact and other React-like libraries, Inferno has controlled components for input/select/textarea elements
+- Components can be rendered outside their current html hierarchy using `createPortal` - API
+- Support for [older browsers](https://github.com/infernojs/inferno#browser-support) without any polyfills
+- defaultHooks for Functional components, this way re-defining lifecycle events per usage can be avoided
+- Inferno supports setting styles using string `<div style="background-color: red"></div>` or using object literal syntax `<div style={{"background-color": "red"}}></div>`. For camelCase syntax support see [`inferno-compat`](https://github.com/infernojs/inferno/tree/master/packages/inferno-compat).
+- Fragments (v6)
+- createRef and forwardRef APIs (v6)
+
+## Browser support
+Since version 4 we have started running our test suite **without** any polyfills.
+Inferno is now part of [Saucelabs](https://saucelabs.com/) open source program and we use their service for executing the tests.
+
+InfernoJS natively supports the browsers listed below.
+
+[![Build Status](https://saucelabs.com/browser-matrix/Havunen.svg)](https://saucelabs.com/open_sauce/user/Havunen)
+
+
+## Migration guides
+
+- [Inferno v4](https://github.com/infernojs/inferno/blob/master/documentation/v4-migration.md)
+- [Inferno v6](https://github.com/infernojs/inferno/blob/master/documentation/v6-migration.md)
 
 ## Benchmarks
 
-- [Virtual DOM Benchmark](http://vdom-benchmark.github.io/vdom-benchmark/)
+Live examples at [https://infernojs.github.io/inferno](https://infernojs.github.io/inferno)
+
 - [UI Bench](https://localvoid.github.io/uibench/)
-- [dbmonster](http://infernojs.org/benchmarks/dbmonster/)
-- [dbmonster (lazy optimisation)](http://infernojs.org/benchmarks/dbmonster-lazy/)
-- [Angular Test Table](http://infernojs.org/benchmarks/angular-test-table/infernojs/index.html)
-- [JS Web Frameworks Benchmark - Round 4](http://stefankrause.net/js-frameworks-benchmark4/webdriver-ts/table.html)
+- [dbmonster](https://raw.githack.com/infernojs/inferno/master/docs/dbmonster/index.html)
+- [JS Web Frameworks Benchmark (current)](https://krausest.github.io/js-framework-benchmark/current.html)
+- [Isomorphic-UI-Benchmark](https://github.com/marko-js/isomorphic-ui-benchmarks)
+- [1k Components](https://raw.githack.com/infernojs/inferno/master/docs/1kcomponents/index.html)
 
 ## Code Example
 
-Let's start with some code. As you can see, Inferno intentionally keeps the same, good, design ideas as React regarding components: one-way data flow and separation of concerns.
+Let's start with some code. As you can see, Inferno intentionally keeps the same design ideas as React regarding components: one-way data flow and separation of concerns.
 
 In these examples, JSX is used via the [Inferno JSX Babel Plugin](https://github.com/infernojs/babel-plugin-inferno) to provide a simple way to express Inferno virtual DOM. You do not need to use JSX, it's completely **optional**, you can use [hyperscript](https://github.com/infernojs/inferno/tree/master/packages/inferno-hyperscript) or [createElement](https://github.com/infernojs/inferno/tree/master/packages/inferno-create-element) (like React does).
+Keep in mind that compile time optimizations are available only for JSX.
 
 ```jsx
-import Inferno from 'inferno';
+import { render } from 'inferno';
 
 const message = "Hello world";
 
-Inferno.render(
+render(
   <MyComponent message={ message } />,
   document.getElementById("app")
-)
+);
 ```
 Furthermore, Inferno also uses ES6 components like React:
 
 ```jsx
-import Inferno from 'inferno';
-import Component from 'inferno-component';
+import { render, Component } from 'inferno';
 
 class MyComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       counter: 0
-    }
+    };
   }
   render() {
     return (
@@ -89,22 +99,93 @@ class MyComponent extends Component {
         <h1>Header!</h1>
         <span>Counter is at: { this.state.counter }</span>
       </div>
-    )
+    );
   }
 }
 
-Inferno.render(<MyComponent />, document.body);
+render(
+  <MyComponent />,
+  document.getElementById("app")
+);
 ```
+
+Because performance is an important aspect of this library, we want to show you how to optimize your application even further.
+In the example below we optimize diffing process by using JSX **$HasVNodeChildren** to predefine children shape compile time.
+Then we create text vNode using `createTextVNode`. All child flags are documented [here](https://infernojs.org/docs/guides/optimizations).
+
+```jsx
+import { createTextVNode, render, Component } from 'inferno';
+
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 0
+    };
+  }
+  render() {
+    return (
+      <div>
+        <h1>Header!</h1>
+        <span $HasVNodeChildren>{createTextVNode('Counter is at: ' + this.state.counter)}</span>
+      </div>
+    );
+  }
+}
+
+render(
+  <MyComponent />,
+  document.getElementById("app")
+);
+```
+
+### Tear down
+
+To tear down inferno application you need to render null on root element. 
+Rendering `null` will trigger unmount lifecycle hooks for whole vDOM tree and remove global event listeners.
+It is important to unmount unused vNode trees to free browser memory. 
+
+```jsx
+import { createTextVNode, render, Component } from 'inferno';
+
+const rootElement = document.getElementById("app");
+
+// Start the application
+render(
+  <ExampleComponent/>,
+  rootElement
+);
+
+// Tear down
+render(
+  null,
+  rootElement
+);
+
+```
+
 
 ### More Examples
 
-- [**Simple Clock** (@JSFiddle)](https://jsfiddle.net/u7p19pvc/)
+If you have built something using Inferno you can add them here:
+
+- [**Simple Clock** (@JSFiddle)](https://jsfiddle.net/2nm1kqct/)
+- [**Simple JS Counter** (@github/scorsi)](https://github.com/scorsi/simple-counter-inferno-cerebral-fusebox): SSR Inferno (view) + Cerebral (state manager) + FuseBox (build system/bundler)
+- [**Online interface to TMDb movie database** (@codesandbox.io)](https://codesandbox.io/s/9zjo5yx8po): Inferno + [Inferno hyperscript](https://github.com/infernojs/inferno) (view) + [Superagent](https://github.com/visionmedia/superagent) (network requests) + Web component ([custom elements v1](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)) + [state-transducer](https://github.com/brucou/state-transducer) 
+(state machine library) 
+- [**Lemmy - a self-hostable reddit alternative** (front end in Inferno)](https://github.com/dessalines/lemmy)
 
 ## Getting Started
 
-The best way to start to use Inferno is by using [Create Inferno App](https://github.com/infernojs/create-inferno-app). You can get setup and running within a few minutes.
+The easiest way to get started with Inferno is by using [Create Inferno App](https://github.com/infernojs/create-inferno-app).
 
-Alternatively, you can get started with Inferno using the [Inferno Boilerplate](https://github.com/infernojs/inferno-boilerplate) for a very simple setup. For a more advanced example demonstrating how Inferno might be used, we recommend trying out [Inferno Starter Project](https://github.com/nightwolfz/inferno-starter) by [nightwolfz](https://github.com/nightwolfz/). For using inferno to build a mobile app [Inferno Mobile Starter Project](https://github.com/Rudy-Zidan/inferno-mobile) by [Rudy-Zidan](https://github.com/Rudy-Zidan).
+Alternatively, you can try any of the following:
+* the [Inferno Boilerplate](https://github.com/infernojs/inferno-boilerplate) for a very simple setup.
+* for a more advanced example demonstrating how Inferno might be used, we recommend trying out [Inferno Starter Project](https://github.com/nightwolfz/inferno-starter) by [nightwolfz](https://github.com/nightwolfz/).
+* for using Inferno to build a mobile app, try [Inferno Mobile Starter Project](https://github.com/Rudy-Zidan/inferno-mobile) by [Rudy-Zidan](https://github.com/Rudy-Zidan).
+* for [TypeScript](https://www.typescriptlang.org/) support and bundling, check out [ts-transform-inferno](https://github.com/deamme/ts-transform-inferno), or [inferno-typescript-example](https://github.com/infernojs/inferno-typescript-example).
+* for an example of how to use Inferno in [codesandbox](https://codesandbox.io/): https://codesandbox.io/s/znmyj24w4p
+* for using [parcel and typescript](https://github.com/jayy-lmao/inferno-parcel-ts)
 
 Core package:
 
@@ -115,8 +196,6 @@ npm install --save inferno
 Addons:
 
 ```sh
-# ES2015 class components
-npm install --save inferno-component
 # server-side rendering
 npm install --save inferno-server
 # routing
@@ -125,14 +204,16 @@ npm install --save inferno-router
 
 Pre-bundled files for browser consumption can be found on [our cdnjs](https://cdnjs.com/libraries/inferno):
 
+Or on jsDelivr:
+
 ```
-https://cdnjs.cloudflare.com/ajax/libs/inferno/1.2.2/inferno.min.js
+https://cdn.jsdelivr.net/npm/inferno@latest/dist/inferno.min.js
 ```
 
 Or on unpkg.com:
 
 ```
-https://unpkg.com/inferno@1.2.2/dist/inferno.min.js
+https://unpkg.com/inferno@latest/dist/inferno.min.js
 ```
 
 ### Creating Virtual DOM
@@ -165,7 +246,7 @@ Inferno now has bindings available for some of the major state management librar
 
 - Redux via [`inferno-redux`](https://github.com/infernojs/inferno/tree/dev/packages/inferno-redux)
 - MobX via [`inferno-mobx`](https://github.com/infernojs/inferno/tree/dev/packages/inferno-mobx)
-- Cerebral via [`cerebral-view-inferno`](https://github.com/cerebral/cerebral-view-inferno)
+- Cerebral via [`@cerebral/inferno`](https://github.com/cerebral/cerebral/tree/master/packages/node_modules/@cerebral/inferno)
 
 ## JSX
 
@@ -173,22 +254,18 @@ Inferno has its own [JSX Babel plugin](https://github.com/trueadm/babel-plugin-i
 
 ## Differences from React
 
-- Inferno is much smaller in size, `9kb` vs `45kb` gzip. This means Inferno is faster to transfer over the network but more importantly, is *much* faster to parse – this makes a big impact on mobile.
-- Inferno is considerably faster than React. This doesn't apply to only benchmarks, but real-world applications that companies have converted to Inferno from React. Ranging from 40% - 110% performance improvement with Inferno `1.0`. No other React-like library gets close to this performance gain over React.
 - Inferno doesn't have a fully synthetic event system like React does. Inferno has a partially synthetic event system, instead opting to only delegate certain events (such as `onClick`).
 - Inferno doesn't support React Native. Inferno was only designed for the browser/server with the DOM in mind.
-- Inferno doesn't support string refs – although this can be enabled using `inferno-compat`. We don't recommend using them, they are the source of many memory leaks and performance issues in real-world apps. Stick with function callback refs instead.
-- Inferno includes `render` on the main core package, rather than have an `InfernoDOM` package like React does. We used to do it that way, but we found people simply didn't like it given we don't support native. Furthermore, by not splitting them, we improved performance and bundle sizes.
-- Inferno provides lifecycle events on functional components. This is a major win for people who prefer lightweight components rather than bloated ES2015 classes.
-- Inferno is able to use the React Dev Tools extensions for Chrome/Firefox/etc to provide the same level of debugging experience to user of Inferno via `inferno-devtools`.
+- Inferno doesn't support legacy string refs, use `createRef` or callback `ref` API
+- Inferno provides lifecycle events on functional components. This is a major win for people who prefer lightweight components rather than ES2015 classes.
+- Inferno is able to use the React Dev Tools extensions for Chrome/Firefox/etc to provide the same level of debugging experience to the Inferno user via `inferno-devtools`.
 
 ## Differences from Preact
 
-- Inferno is larger in size, `9kb` vs `3kb` gzip. This means that Preact should parse faster than Inferno – if only slightly.
 - Inferno has a partial synthetic event system, resulting in better performance via delegation of certain events.
-- Inferno is *much* faster than Preact in rendering, updating and removing elements from the DOM. Inferno diffs against virtual DOM, rather than the real DOM (except for when loading from server-side rendered content) which means it can make drastic improvements. Unfortunately, diffing against the real DOM has a 30-40% overhead cost in operations.
+- Inferno is *much* faster than Preact in rendering, updating and removing elements from the DOM. Inferno diffs against virtual DOM, rather than the real DOM (except when loading from server-side rendered content), which means it can make drastic improvements. Unfortunately, diffing against the real DOM has a 30-40% overhead cost in operations.
 - Inferno fully supports controlled components for `input`/`select`/`textarea` elements. This prevents lots of edgecases where the virtual DOM is not the source of truth (it should always be). Preact pushes the source of truth to the DOM itself.
-- Inferno provides lifecycle events on functional components. This is a major win for people who prefer lightweight components rather than bloated ES2015 classes.
+- Inferno provides lifecycle events on functional components. This is a major win for people who prefer lightweight components rather than ES2015 classes.
 
 ## Event System
 
@@ -198,20 +275,56 @@ One major difference between Inferno and React is that Inferno does not rename e
 Inferno's event system in favour of using the native event system supplied by the browser. For example, when detecting changes on an `<input>` element, in React you'd use `onChange`, with Inferno you'd use `onInput` instead (the
 native DOM event is `oninput`).
 
-This feature is a very recent addition to Inferno, so there are only a handful of events that use Inferno's event system:
+Available synthetic events are:
 - `onClick`
 - `onDblClick`
-- `onMouseMove`
-- `onMouseDown`
-- `onMouseUp`
-- `onSubmit`
-- `onKeyPress`
+- `onFocusIn`
+- `onFocusOut`
 - `onKeyDown`
+- `onKeyPress`
 - `onKeyUp`
-- `onInput`
-- `onChange`
+- `onMouseDown`
+- `onMouseMove`
+- `onMouseUp`
+- `onTouchEnd`
+- `onTouchMove`
+- `onTouchStart`
 
-More events are expected to be supported in future versions.
+### `linkEvent` (package: `inferno`)
+
+`linkEvent()` is a helper function that allows attachment of `props`/`state`/`context` or other data to events without needing to `bind()` them or use arrow functions/closures. This is extremely useful when dealing with events in functional components. Below is an example:
+
+```jsx
+import { linkEvent } from 'inferno';
+
+function handleClick(props, event) {
+  props.validateValue(event.target.value);
+}
+
+function MyComponent(props) {
+  return <div><input type="text" onClick={ linkEvent(props, handleClick) } /><div>;
+}
+```
+
+This is an example of using it with ES2015 classes:
+
+
+```jsx
+import { linkEvent, Component } from 'inferno';
+
+function handleClick(instance, event) {
+  instance.setState({ data: event.target.value });
+}
+
+class MyComponent extends Component {
+  render () {
+    return <div><input type="text" onClick={ linkEvent(this, handleClick) } /><div>;
+  }
+}
+```
+
+`linkEvent()` offers better performance than binding an event in a class constructor and using arrow functions, so use it where possible.
+
 
 ## Controlled Components
 
@@ -227,9 +340,9 @@ Inferno in this way is called a "controlled component".
 ### `render` (package: `inferno`)
 
 ```javascript
-import Inferno from 'inferno';
+import { render } from 'inferno';
 
-Inferno.render(<div />, document.body);
+render(<div />, document.getElementById("app"));
 ```
 
 Render a virtual node into the DOM in the supplied container given the supplied virtual DOM. If the virtual node was previously rendered
@@ -239,50 +352,53 @@ Warning: If the container element is not empty before rendering, the content of 
 
 ### `createRenderer` (package: `inferno`)
 
-`createRenderer` allows for functional composition when rendering content to the DOM. Example:
+`createRenderer` creates an alternative render function with a signature matching that of the first argument passed to a reduce/scan function. This allows for easier integration with reactive programming libraries, like [RxJS](https://github.com/ReactiveX/rxjs) and [Most](https://github.com/cujojs/most).
 
 ```javascript
-import Inferno from 'inferno';
+import { createRenderer } from 'inferno';
 import { scan, map } from 'most';
 
-...
-const model$ = scan(update, 0, actions$);
-const vNodes$ = map(view(actions$), model$);
-const renderer = Inferno.createRenderer();
-const runApp = () => scan(renderer, container, vNodes$).drain();
+const renderer = createRenderer();
 
-runApp();
+
+// NOTE: vNodes$ represents a stream of virtual DOM node updates
+scan(renderer, document.getElementById("app"), vNodes$);
 ```
+
+See [inferno-most-fp-demo](https://github.com/joshburgess/inferno-most-fp-demo) for an example of how to build an app architecture around this.
 
 ### `createElement` (package: `inferno-create-element`)
 
 Creates an Inferno VNode using a similar API to that found with React's `createElement()`
 
 ```javascript
-import Component from 'inferno-component';
-import createElement from 'inferno-create-element';
+import { Component, render } from 'inferno';
+import { createElement } from 'inferno-create-element';
 
 class BasicComponent extends Component {
-    render() {
-        return createElement('div', {
-               className: 'basic'
-           },
-           createElement('span', {
-               className: this.props.name
-           }, 'The title is ', this.props.title)
-       )
-    }
+  render() {
+    return createElement('div', {
+        className: 'basic'
+      },
+      createElement('span', {
+        className: this.props.name
+      }, 'The title is ', this.props.title)
+    )
+  }
 }
 
-Inferno.render(createElement(BasicComponent, { title: 'abc' }), document.body);
+render(
+  createElement(BasicComponent, { title: 'abc' }),
+  document.getElementById("app")
+);
 ```
 
-### `Component` (package: `inferno-component`)
+### `Component` (package: `inferno`)
 
 **Class component:**
 
 ```javascript
-import Component from 'inferno-component';
+import { Component } from 'inferno';
 
 class MyComponent extends Component {
   render() {
@@ -296,47 +412,159 @@ This is the base class for Inferno Components when they're defined using ES6 cla
 **Functional component:**
 
 ```javascript
-import Inferno from 'inferno';
-
 const MyComponent = ({ name, age }) => (
-  <span>My name is: { name } and my age is: {age}</span>  
+  <span>My name is: { name } and my age is: {age}</span>
 );
+```
+
+Another way of using defaultHooks.
+```javascript
+export function Static() {
+    return <div>1</div>;
+}
+
+Static.defaultHooks = {
+    onComponentShouldUpdate() {
+        return false;
+    }
+};
+```
+
+Default props
+```jsx
+
+
 ```
 
 Functional components are first-class functions where their first argument is the `props` passed through from their parent.
 
 ### `createVNode` (package: `inferno`)
 ```js
-Inferno.createVNode(
+import { createVNode } from 'inferno';
+
+createVNode(
   flags,
   type,
-  [props],
+  [className],
   [...children],
-  [events],
+  [childFlags],
+  [props],
   [key],
-  [ref],
-  [isNormalized]
+  [ref]
 )
 ```
 
-Create a new Inferno `VNode` using `createVNode()`. A `VNode` is a virtual DOM object that is used to
-describe a single element of the UI. Typically `createElement()` (package: `inferno-create-element`), `h()` (package: `inferno-hyperscript`) or JSX are used to create
-`VNode`s for Inferno, but under the hood they all use `createVNode()`. Below is an example of using
-of `createVNode` usage:
+createVNode is used to create html element's virtual node object. Typically `createElement()` (package: `inferno-create-element`), `h()` (package: `inferno-hyperscript`) or JSX are used to create
+`VNode`s for Inferno, but under the hood they all use `createVNode()`. Below is an example of `createVNode` usage:
 
 ```javascript
-import Inferno from 'inferno';
+import { VNodeFlags, ChildFlags } from 'inferno-vnode-flags';
+import { createVNode, createTextVNode, render } from 'inferno';
 
-const vNode = Inferno.createVNode(2, 'div', { className: 'example' }, 'Hello world!');
+const vNode = createVNode(VNodeFlags.HtmlElement, 'div', 'example', createTextVNode('Hello world!'), ChildFlags.HasVNodeChildren);
 
-Inferno.render(vNode, container);
+// <div class="example">Hello world!</div>
+
+render(vNode, container);
 ```
 
-The first argument for `createVNode()` is a value from [`VNodeFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this is a numerical value that tells Inferno what the VNode describes on the page.
+`createVNode` arguments explained:
 
-### `cloneVNode` (package: `inferno`)
+`flags`: (number) is a value from [`VNodeFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this is a numerical value that tells Inferno what the VNode describes on the page.
+
+`type`: (string) is tagName for element for example 'div'
+
+`className`: (string) is the class attribute ( it is separated from props because it is the most commonly used property )
+
+`children`: (vNode[]|vNode) is one or array of vNodes to be added as children for this vNode
+
+`childFlags`: (number) is a value from [`ChildFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this tells inferno shape of the children so normalization process can be skipped.
+
+`props`: (Object) is object containing all other properties. fe: `{onClick: method, 'data-attribute': 'Hello Community!}`
+
+`key`: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.
+
+`ref`: (function) callback which is called when DOM node is added/removed from DOM.
+
+
+### `createComponentVNode` (package: 'inferno')
 ```js
-Inferno.cloneVNode(
+import { createComponentVNode } from 'inferno';
+
+createComponentVNode(
+  flags,
+  type,
+  [props],
+  [key],
+  [ref]
+)
+```
+
+createComponentVNode is used for creating vNode for Class/Functional Component.
+
+Example:
+```javascript
+import { VNodeFlags, ChildFlags } from 'inferno-vnode-flags';
+import { createVNode, createTextVNode, createComponentVNode, render } from 'inferno';
+
+function MyComponent(props, context) {
+  return createVNode(VNodeFlags.HtmlElement, 'div', 'example', createTextVNode(props.greeting), ChildFlags.HasVNodeChildren);
+}
+
+const vNode = createComponentVNode(VNodeFlags.ComponentFunction, MyComponent, {
+  greeting: 'Hello Community!'
+}, null, {
+  onComponentDidMount() {
+    console.log("example of did mount hook!")
+  }
+})
+
+// <div class="example">Hello Community!</div>
+
+render(vNode, container);
+```
+
+
+`createComponentVNode` arguments explained:
+
+`flags`: (number) is a value from [`VNodeFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this is a numerical value that tells Inferno what the VNode describes on the page.
+
+`type`: (Function/Class) is the class or function prototype for Component
+
+`props`: (Object) properties passed to Component, can be anything
+
+`key`: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.
+
+`ref`: (Function|Object) this property is object for Functional Components defining all its lifecycle methods. For class Components this is function callback for ref.
+
+
+
+### `createTextVNode` (package: 'inferno')
+
+createTextVNode is used for creating vNode for text nodes.
+
+`createTextVNode` arguments explained:
+text: (string) is a value for text node to be created.
+key: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.
+
+```js
+import { createTextVNode } from 'inferno';
+
+createTextVNode(
+  text,
+  key
+)
+```
+
+
+### `cloneVNode` (package: `inferno-clone-vnode`)
+
+This package has same API as React.cloneElement
+
+```javascript
+import { cloneVNode } from 'inferno-clone-vnode';
+
+cloneVNode(
   vNode,
   [props],
   [...children]
@@ -353,92 +581,269 @@ Clone and return a new Inferno `VNode` using a `VNode` as the starting point. Th
 An example of using `cloneVNode`:
 
 ```javascript
-import Inferno from 'inferno';
+import { createVNode, render } from 'inferno';
+import { cloneVNode } from 'inferno-clone-vnode';
+import { VNodeFlags } from 'inferno-vnode-flags';
 
-const vNode = Inferno.createVNode(2, 'div', { className: 'example' }, 'Hello world!');
-const newVNode = Inferno.cloneVNode(vNode, { id: 'new' }); // we are adding an id prop to the VNode
+const vNode = createVNode(VNodeFlags.HtmlElement, 'div', 'example', 'Hello world!');
+const newVNode = cloneVNode(vNode, { id: 'new' }); // we are adding an id prop to the VNode
 
-Inferno.render(newVNode, container);
+render(newVNode, container);
 ```
 
 If you're using JSX:
 
 ```jsx
-import Inferno from 'inferno';
+import { render } from 'inferno';
+import { cloneVNode } from 'inferno-clone-vnode';
 
 const vNode = <div className="example">Hello world</div>;
-const newVNode = Inferno.cloneVNode(vNode, { id: 'new' }); // we are adding an id prop to the VNode
+const newVNode = cloneVNode(vNode, { id: 'new' }); // we are adding an id prop to the VNode
 
-Inferno.render(newVNode, container);
+render(newVNode, container);
 ```
 
-### `findDOMNode` (package: `inferno`)
+### `createPortal` (package: 'inferno')
 
-Once enabled via `options.findDOMNodeEnabled()` at the start of an application, `findDOMNode()` is enabled.
+HTML:
+```html
+<div id="root"></div>
+<div id="outside"></div>
+```
 
-Note: we recommend using a `ref` callback on a component to find its instance, rather than using `findDOMNode()`. `findDOMNode()` cannot be used on functional components and it introduces a significant performance impact.
+Javascript:
+```jsx
+const { render, Component, version, createPortal } from 'inferno';
+
+function Outsider(props) {
+	return <div>{`Hello ${props.name}!`}</div>;
+}
+
+const outsideDiv = document.getElementById('outside');
+const rootDiv = document.getElementById('root');
+
+function App() {
+	return (
+  	    <div>
+    	    Main view
+            ...
+            {createPortal(<Outsider name="Inferno" />, outsideDiv)}
+        </div>
+    );
+}
+
+
+// render an instance of Clock into <body>:
+render(<App />, rootDiv);
+```
+
+Results into:
+```html
+<div id="root">
+    <div>Main view ...</div>
+</div>
+<div id="outside">
+    <div>Hello Inferno!</div>
+</div>
+```
+Cool huh? Updates (props/context) will flow into "Outsider" component from the App component the same way as any other Component.
+For inspiration on how to use it click [here](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202)!
+
+### `createRef` (package: `inferno`)
+
+createRef API provides shorter syntax than callback ref when timing of element is not needed.
+
+```jsx
+import { Component, render, createRef } from 'inferno';
+
+class Foobar extends Component {
+  constructor(props) {
+    super(props);
+
+    // Store reference somewhere
+    this.element = createRef(); // Returns object {current: null}
+  }
+
+  render() {
+    return (
+      <div>
+        <span id="span" ref={this.element}>
+          Ok
+        </span>
+      </div>
+    );
+  }
+}
+
+render(<Foobar />, container);
+```
+
+
+### `createFragment` (package: `inferno`)
+
+createFragment is the native way to createFragment vNode. `createFragment(children: any, childFlags: ChildFlags, key?: string | number | null)`
+
+`createFragment` arguments explained:
+
+`children`: (Array) Content of fragment vNode, typically array of VNodes
+
+`childFlags`: (number) is a value from [`ChildFlags`](https://github.com/infernojs/inferno/tree/master/packages/inferno-vnode-flags), this tells inferno shape of the children so normalization process can be skipped.
+
+`key`: (string|number) unique key within this vNodes siblings to identify it during keyed algorithm.
+
+
+Alternative ways to create fragment vNode are:
+
+- Using JSX `<> ... </>`, `<Fragment> .... </Fragment>` or `<Inferno.Fragment> ... </Inferno.Fragment>`
+- Using createElement API `createElement(Inferno.Fragment, {key: 'test'}, ...children)`
+- Using hyperscript API `h(Inferno.Fragment, {key: 'test'}, children)`
+
+
+In the below example both fragments are identical except they have different key
+```jsx
+import { Fragment, render, createFragment } from 'inferno';
+import { ChildFlags } from 'inferno-vnode-flags';
+
+function Foobar() {
+    return (
+      <div $HasKeyedChildren>
+        {createFragment(
+            [<div>Ok</div>, <span>1</span>],
+            ChildFlags.HasNonKeyedChildren,
+            'key1'
+        )}
+        <Fragment key="key2">
+          <div>Ok</div>
+          <span>1</span>
+        </Fragment>
+      </div>
+    );
+}
+
+render(<Foobar />, container);
+```
+
+
+### `forwardRef` (package: `inferno`)
+
+forwardRef is a new mechanism to "forward" ref inside a functional Component.
+It can be useful if you have simple functional Components and you want to create reference to a specific element inside it.
+
+```jsx
+import { forwardRef, Component, render } from 'inferno';
+
+const FancyButton = forwardRef((props, ref) => (
+  <button ref={ref} className="FancyButton">
+    {props.children}
+  </button>
+));
+
+class Hello extends Component {
+  render() {
+    return (
+      <FancyButton
+        ref={btn => {
+          if (btn) {
+            // btn variable is the button rendered from FancyButton
+          }
+        }}
+      >
+        Click me!
+      </FancyButton>
+    );
+  }
+}
+
+render(<Hello />, container);
+```
+
+### `hydrate` (package: `inferno-hydrate`)
+
+```javascript
+import { hydrate } from 'inferno-hydrate';
+
+hydrate(<div />, document.getElementById("app"));
+```
+
+Same as `render()`, but is used to hydrate a container whose HTML contents were rendered by `inferno-server`. Inferno will attempt to attach event listeners to the existing markup.
+
+### `options.componentComparator` ( package `inferno`) DEV only
+
+This option can be used during **development** to create custom component comparator method.
+This option will be called on every Component update.
+It gets two parameters: lastVNode and nextVNode. When it returns `true` lastVNode will be replaced with nextVNode.
+If anything else than `true` is returned it falls to normal behavior.
+
+```javascript
+import {options} from 'inferno';
+
+options.componentComparator = function (lastVNode, nextVNode) {
+    /* custom logic */
+    return true; // Replaces lastVNode with nextVNode
+}
+```
+
+### `findDOMNode` (package: `inferno-extras`)
+This feature has been moved from inferno to inferno-compat in v6. No options are needed anymore.
+
+Note: we recommend using a `ref` callback on a component to find its instance, rather than using `findDOMNode()`. `findDOMNode()` cannot be used on functional components.
 
 If a component has been mounted into the DOM, this returns the corresponding native browser DOM element. This method is useful for reading values out of the DOM, such as form field values and performing DOM measurements.
 In most cases, you can attach a ref to the DOM node and avoid using `findDOMNode()` at all. When render returns null or false, `findDOMNode()` returns null.
+If Component has rendered fragment it returns the first element.
 
-### `linkEvent` (package: `inferno`)
+### Inferno Flags (package: inferno-vnode-flags)
 
-`linkEvent()` is a helper function that allows attachment of `props`/`state`/`context` or other data to events without needing to `bind()` them or use arrow functions/closures. This is extremely useful when dealing with events in functional components. Below is an example:
+**VNodeFlags:**
+- `VNodeFlags.HtmlElement`
+- `VNodeFlags.ComponentUnknown`
+- `VNodeFlags.ComponentClass`
+- `VNodeFlags.ComponentFunction`
+- `VNodeFlags.Text`
+- `VNodeFlags.SvgElement`
+- `VNodeFlags.InputElement`
+- `VNodeFlags.TextareaElement`
+- `VNodeFlags.SelectElement`
+- `VNodeFlags.Void`
+- `VNodeFlags.Portal`
+- `VNodeFlags.ReCreate` (JSX **$ReCreate**) always re-creates the vNode
+- `VNodeFlags.ContentEditable`
+- `VNodeFlags.Fragment`
+- `VNodeFlags.InUse`
+- `VnodeFlags.ForwardRef`
+- `VNodeFlags.Normalized`
 
-```jsx
-import Inferno, { linkEvent } from 'inferno';
-
-function handleClick(props, event) {
-	props.validateValue(event.target.value);
-}
-
-function MyComponent(props) {
-	return <div><input type="text" onClick={ linkEvent(props, handleClick) } /><div>;
-}
-```
-
-This is an example of using it with ES2015 classes:
+**VNodeFlags Masks:**
+- `VNodeFlags.ForwardRefComponent` Functional component wrapped in forward ref
+- `VNodeFlags.FormElement` - Is form element
+- `VNodeFlags.Element` - Is vNode element
+- `VNodeFlags.Component` - Is vNode Component
+- `VNodeFlags.DOMRef` - Bit set when vNode holds DOM reference
+- `VNodeFlags.InUseOrNormalized` - VNode is used somewhere else or came from normalization process
+- `VNodeFlags.ClearInUseNormalized` - Opposite mask of InUse or Normalized
 
 
-```jsx
-import Inferno, { linkEvent } from 'inferno';
-import Component from 'inferno-component';
+**ChildFlags**
+- `ChildFlags.UnknownChildren` needs Normalization
+- `ChildFlags.HasInvalidChildren` is invalid (null, undefined, false, true)
+- `ChildFlags.HasVNodeChildren` (JSX **$HasVNodeChildren**) is single vNode (Element/Component)
+- `ChildFlags.HasNonKeyedChildren` (JSX **$HasNonKeyedChildren**) is Array of vNodes non keyed (no nesting, no holes)
+- `ChildFlags.HasKeyedChildren` (JSX **$HasKeyedChildren**) is Array of vNodes keyed (no nesting, no holes)
+- `ChildFlags.HasTextChildren` (JSX **$HasTextChildren**) vNode contains only text
 
-function handleClick(instance, event) {
-	instance.setState({ data: event.target.value });
-}
+**ChildFlags Masks**
+- `ChildFlags.MultipleChildren` Is Array
 
-class MyComponent extends Component {
-	render () {
-		return <div><input type="text" onClick={ linkEvent(this, handleClick) } /><div>;
-	}
-}
-```
-
-`linkEvent()` offers better performance than binding an event in a class constructor and using arrow functions, so use it where possible.
 
 ### `renderToString` (package: `inferno-server`)
 
 ```javascript
-import Inferno from 'inferno';
-import InfernoServer from 'inferno-server';
+import { renderToString } from 'inferno-server';
 
-InfernoServer.renderToString(<div />);
+const string = renderToString(<div />);
 ```
 
 Render a virtual node into an HTML string, given the supplied virtual DOM.
-
-### `options` (package: `inferno`)
-
-You can set default options for Inferno using `Inferno.options`. Below are the following options:
-
-#### - `findDOMNodeEnabled` (default: `false`)
-
-This enables `findDOMNode()`. We strongly recommend against using this API as it introduces a significant impact to performance. In the future this API command will be removed, along with `findDOMNode()`;
-
-#### - `recyclingEnabled` (default: `true`)
-
-This enables DOM node recycling within Inferno, so that DOM nodes are re-used upon disposal. It can have significant performance benefits, but may also cause side-effects with custom elements.
 
 ## Functional component lifecycle events
 
@@ -446,28 +851,50 @@ This enables DOM node recycling within Inferno, so that DOM nodes are re-used up
 | -----------               | --------------                                                  | -----------------------         |
 | `onComponentWillMount`    | a functional component is about to mount                        |                                 |
 | `onComponentDidMount`     | a functional component has mounted successfully                 | `domNode`                       |
-| `onComponentShouldUpdate` | a functional component has been triggered to updated            | `lastProps, nextProps`          |
+| `onComponentShouldUpdate` | a functional component has been triggered to update             | `lastProps, nextProps`          |
 | `onComponentWillUpdate`   | a functional component is about to perform an update            | `lastProps, nextProps`          |
-| `onComponentDidUpdate`    | a functional component has performed an updated                 | `lastProps, nextProps`          |
+| `onComponentDidUpdate`    | a functional component has performed an update                  | `lastProps, nextProps`          |
 | `onComponentWillUnmount`  | a functional component is about to be unmounted                 | `domNode`                       |
+
+## Class component lifecycle events
+
+All these Component lifecycle methods ( including `render` and `setState - callback`) are called with Component instance context. You don't need to "bind" these methods.
+
+| Name                              | Triggered when                                                                        | Arguments to callback           |
+| -----------                       | --------------                                                                        | -----------------------         |
+| `componentDidMount`               | component has been mounted succesfully                                                |                                 |
+| `componentWillMount`              | component is about to mount                                                           |                                 |
+| `componentWillReceiveProps`       | before render when component updates                                                  | `nextProps, context`            |
+| `shouldComponentUpdate`           | component has been triggered to update                                                | `nextProps, nextState`          |
+| `componentWillUpdate`             | component is about to perform an update                                               | `nextProps, nextState, context` |
+| `componentDidUpdate`              | component has performed an update                                                     | `lastProps, lastState, snapshot`|
+| `componentWillUnmount`            | component is about to be unmounted                                                    |                                 |
+| `getChildContext`                 | before render method, return value object is combined to sub tree context             |                                 |
+| `getSnapshotBeforeUpdate`         | before component updates, return value is sent to componentDidUpdate as 3rd parameter | `lastProps, lastState`          |
+| `static getDerivedStateFromProps` | before render method                                                                  | `nextProps, state`              |
 
 ### Using functional lifecycle events
 
 Functional lifecycle events must be explicitly assigned via props onto a functional component like shown below:
 
 ```javascript
+import { render } from 'inferno';
+
 function mounted(domNode) {
-    // [domNode] will be available for DOM nodes and components (if the component has mounted to the DOM)
+  // [domNode] will be available for DOM nodes and components (if the component has mounted to the DOM)
 }
 
 function FunctionalComponent({ props }) {
-	return <div>Hello world</div>;
+  return <div>Hello world</div>;
 }
 
-Inferno.render(<FunctionalComponent onComponentDidMount={ mounted } />, document.body);
+render(
+  <FunctionalComponent onComponentDidMount={ mounted } />,
+  document.getElementById("app")
+);
 ```
 
-Please note: class components (ES2015 classes) from `inferno-component` **do not** support the same lifecycle events (they have their own lifecycle events that work as methods on the class itself).
+Please note: class components (ES2015 classes) from `inferno` **do not** support the same lifecycle events (they have their own lifecycle events that work as methods on the class itself).
 
 ## Development vs Production modes
 
@@ -484,17 +911,30 @@ When running Inferno on the browser using Webpack or Rollup, a replacement will 
 
 #### Webpack
 
-Use the following configuration in your Webpack build:
+Use the following configuration in your Webpack build for production build:
 
 ```js
   ...
-	plugins: [
+  plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
     })
   ]
+```
+
+When you are building for development, you may want to use `inferno.dev.esm.js` ("dev:module": "dist/index.dev.esm.js",) file.
+That build version has extra level of validation for development purposes. You can use it by adding following code to your webpack config.
+
+```js
+    ...
+	resolve: {
+    /* When doing development workflow we want to make sure webpack picks up development build of inferno */
+		alias: {
+			inferno: __dirname + "/node_modules/inferno/dist/index.dev.esm.js"
+		}
+	}
 ```
 
 #### Rollup
@@ -507,40 +947,76 @@ const replace = require('rollup-plugin-replace');
 
 ```js
   ...
-	plugins: [
-		replace({
-			'process.env.NODE_ENV': JSON.stringify('production'),
-		})
+  plugins: [
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    })
   ]
 ```
 
-## Browser Support
+When you are building for development, you may want to use `inferno.dev.esm.js` ("dev:module": "dist/index.dev.esm.js",) file.
+That build version has extra level of validation for development purposes. You can use it by adding following code to your rollup config.
 
-Inferno supports IE11+, Edge, Chrome, Firefox and Safari 8+. In order to support IE8+, Inferno requires polyfills for the following JavaScript features:
+```js
+const alias = require('@rollup/plugin-alias');
 
-- [Promise object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-- [Map object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
-- [WeakMap object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
-- [Object.keys](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
-- [Object.assign](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+    ...
+  plugins: [
+    alias({
+        resolve: ['.js'],
+        entries: [
+          {find: 'inferno', replacement: __dirname + '/node_modules/inferno/dist/index.dev.esm.js'}
+        ]
+    }),
+  ]
 
-Potential solutions include using the [es5-shim](https://github.com/es-shims/es5-shim) for ES5 features and [es6-shim](https://github.com/paulmillr/es6-shim) from ES2015 features.
-
-As a quick drop-in solution, you may also use the [Polyfill.io](https://polyfill.io) service to pull in the required polyfills for the user's browser automatically by including the following line in your page:
-```
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,Map,WeakMap,Object.keys,Object.assign"></script>
 ```
 
 ### Custom namespaces
 
-Inferno wants to always deliver great performance. In order to do so, it has to make intelligent assumptions about the state of the DOM and the elements available to mutate. Custom namespaces conflict with this idea and change the schema of how different elements and attributes might work, so Inferno makes no attempt to support namespaces. Instead, SVG namespaces are automatically applied to elements and attributes based on their `tag name`.
+Inferno always wants to deliver great performance. In order to do so, it has to make intelligent assumptions about the state of the DOM and the elements available to mutate. Custom namespaces conflict with this idea and change the schema of how different elements and attributes might work, so Inferno makes no attempt to support namespaces. Instead, SVG namespaces are automatically applied to elements and attributes based on their `tag name`.
+
+## Development
+If you want to contribute code, fork this project and submit a PR from your fork. To run browser tests you need to build the repos. A complete rebuild of the repos can take >5 mins.
+
+```sh
+$ git clone git@github.com:infernojs/inferno.git
+$ cd inferno && npm i
+$ npm run test:node
+$ npm run build
+$ npm run test:browser
+```
 
 ## Community
 
 There is an [Inferno Slack](https://infernojs.slack.com). You can join via [inferno-slack.herokuapp.com](https://inferno-slack.herokuapp.com).
 
-### Inferno is supported by BrowserStack
 
-<img src="http://infernojs.org/browserstack.svg" height="50px" alt="Supported by Browserstack" />
-<img src="https://saucelabs.com/content/images/logo@3x.png" height="50px" alt="Supported by Sauce Labs" />
-<img src="https://www.digitalocean.com/assets/media/logos-badges/png/DO_Powered_by_Badge_black-a35c64eb.png" height="50px" alt="Supported by Digital Ocean" />
+### Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/infernojs/inferno/graphs/contributors"><img src="https://opencollective.com/inferno/contributors.svg?width=890" /></a>
+
+
+### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/inferno#backer)]
+
+<a href="https://opencollective.com/inferno#backers" target="_blank"><img src="https://opencollective.com/inferno/backers.svg?width=890"></a>
+
+
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/inferno#sponsor)]
+
+<a href="https://opencollective.com/inferno/sponsor/0/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/1/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/2/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/3/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/4/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/5/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/6/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/7/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/8/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/inferno/sponsor/9/website" target="_blank"><img src="https://opencollective.com/inferno/sponsor/9/avatar.svg"></a>
+

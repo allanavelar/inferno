@@ -1,6 +1,6 @@
 {
   "name": "inferno",
-  "version": "1.2.2",
+  "version": "7.4.2",
   "license": "MIT",
   "description": "An extremely fast, React-like JavaScript library for building modern user interfaces",
   "author": {
@@ -12,9 +12,8 @@
   },
   "homepage": "https://github.com/infernojs/inferno#readme",
   "keywords": [
-    "babel",
-    "react",
     "inferno",
+    "performance",
     "framework",
     "interfaces",
     "user interfaces",
@@ -23,9 +22,42 @@
     "server",
     "dom",
     "browser",
-    "rollup"
+    "rollup",
+    "vdom"
   ],
-  "main": "inferno.js",
-  "typings": "inferno.d.ts",
-  "repository": "https://github.com/infernojs/inferno"
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/inferno",
+    "logo": "https://opencollective.com/inferno/logo.txt"
+  },
+  "scripts": {
+    "postinstall": "opencollective-postinstall"
+  },
+  "rollup": {
+    "bundledDependencies": [
+      "inferno-shared",
+      "inferno-vnode-flags"
+    ],
+    "moduleName": "Inferno"
+  },
+  "files": [
+    "index.js",
+    "index.esm.js",
+    "dist/",
+    "README.md",
+    "package.json"
+  ],
+  "main": "index.js",
+  "module": "index.esm.js",
+  "dev:module": "dist/index.dev.esm.js",
+  "typings": "dist/index.d.ts",
+  "repository": "https://github.com/infernojs/inferno",
+  "devDependencies": {
+    "inferno-utils": "7.4.2"
+  },
+  "dependencies": {
+    "inferno-shared": "7.4.2",
+    "inferno-vnode-flags": "7.4.2",
+    "opencollective-postinstall": "^2.0.2"
+  }
 }

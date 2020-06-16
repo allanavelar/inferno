@@ -1,6 +1,6 @@
 {
   "name": "inferno-router",
-  "version": "1.2.2",
+  "version": "7.4.2",
   "license": "MIT",
   "description": "Provides routing functionality for Inferno",
   "author": {
@@ -11,7 +11,16 @@
     "url": "https://github.com/infernojs/inferno/issues"
   },
   "homepage": "https://github.com/infernojs/inferno#readme",
-  "main": "inferno-router.js",
+  "files": [
+    "index.js",
+    "dist/",
+    "README.md",
+    "package.json"
+  ],
+  "main": "index.js",
+  "module": "dist/index.esm.js",
+  "dev:module": "dist/index.dev.esm.js",
+  "typings": "dist/index.d.ts",
   "keywords": [
     "babel",
     "react",
@@ -22,9 +31,27 @@
     "router"
   ],
   "repository": "https://github.com/infernojs/inferno",
+  "peerDependencies": {
+    "history": "^4.10.1",
+    "path-to-regexp-es6": "1.7.0"
+  },
   "dependencies": {
-    "inferno": "1.2.2",
-    "inferno-component": "1.2.2",
-    "inferno-create-element": "1.2.2"
+    "history": "^4.10.1",
+    "hoist-non-inferno-statics": "^1.1.3",
+    "inferno": "7.4.2",
+    "path-to-regexp-es6": "1.7.0"
+  },
+  "devDependencies": {
+    "inferno-vnode-flags": "7.4.2",
+    "mobx": "*"
+  },
+  "rollup": {
+    "bundledDependencies": [
+      "inferno-shared"
+    ],
+    "moduleName": "Inferno.Router",
+    "moduleGlobals": {
+      "inferno": "Inferno"
+    }
   }
 }

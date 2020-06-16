@@ -6,12 +6,49 @@ It provides the same exports as `react` and `react-dom`, meaning you can use you
 
 Do note however, as with almost all compatability layer libraries, there is an associated cost of extra overhead. As such, you should never expect native Inferno performance when using `inferno-compat`.
 
+You might not always need the `inferno-compat` package. Just the alias to Inferno might be enough.
+
+**Inferno-compat** adds the following features:
+
+As in React:
+
+- ClassName is copied to props
+- Children is copied to props (for html vNodes too)
+- styles are converted from camelCase to hyphen-case runtime. You can turn off this feature by setting: `options.reactStyles = false;`
+- Empty props are always created for element vNodes
+- You can create Components based on string
+- `findDOMNOde` -method is available
+- Iterable data structures are supported
+- `Children.(map/forEach/count/only/toArray)` - methods are available
+- Html properties are transformed to inferno compatible format
+- Some form events (fe: onChange) are transformed to native alternative
+- PureComponent is available
+- `unstable_renderSubtreeIntoContainer` - method is available
+-  `DOM` - factory is available
+- `unmountComponentAtNode` - method is available its same as "render(null, container)"
+
 ## How to install?
 
-```bash
+Inferno-compat does not automatically install all its features. For example: If you need createElement support you should also install `inferno-create-element`.
+
+All packages:
+```
 npm install --save inferno
 npm install --save inferno-compat
+npm install --save inferno-clone-vnode
+npm install --save inferno-create-class
+npm install --save inferno-create-element
+
 ```
+
+If you use React/lib/ReactCSSTransitionGroup.js
+
+install `inferno-transition-group` package.
+
+If you use React/lib/ReactCSSTransitionGroup.js
+
+install `rc-css-transition-group-modern` package.
+
 
 ## What is currently supported?
 
@@ -31,6 +68,7 @@ Note: Inferno will not currently validate `PropTypes`
 ### `react-dom`
 
 - `ReactDOM.render`
+- `ReactDOM.hydrate`
 - `ReactDOM.unmountComponentAtNode`
 - `ReactDOM.findDOMNode`
 - `React.DOM`
@@ -114,5 +152,5 @@ class Foo extends React.Component {
 
 ReactDOM.render((
     <Foo a="a">test</Foo>
-), document.body);
+), document.getElementById("app"));
 ```

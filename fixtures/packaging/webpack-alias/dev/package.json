@@ -1,0 +1,11 @@
+{
+  "name": "webpack-alias-dev-test",
+  "private": true,
+  "dependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "scripts": {
+    "build": "rm -f output.js && webpack --config config.js"
+  }
+}

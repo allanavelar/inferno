@@ -1,7 +1,10 @@
 # inferno-create-class
 > Provides a helper to create Inferno Components without needing ES2015
 
-Note: this is similar to `React.createClass` in that methods are out-bound. However, this module does not support mixins.
+Warning: This package will `.bind` all class methods to its instance!
+We recommend using ES2015 classes and transpiling them with babel or typescript.
+
+This package was implemented to provide alternative for old `React.createClass`.
 
 ## Install
 
@@ -12,18 +15,17 @@ npm install inferno-create-class
 ## Usage
 
 ```js
-var createClass = require('inferno-create-class');
-var Inferno = require('inferno');
-var InfernoDOM = require('inferno-dom');
+import { createClass } from 'inferno-create-class';
+import { render } from 'inferno';
 
-var MyComponent = createClass({
+const MyComponent = createClass({
 	displayName: 'MyComponent',
 	render: function() {
-		return <div>Hell world!</div>;
+		return <div>Hello, world!</div>;
 	}
 });
 
-InfernoDOM.render(<MyComponent />, container);
+render(<MyComponent />, container);
 ```
 
 

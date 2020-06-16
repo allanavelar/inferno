@@ -1,0 +1,20 @@
+{
+  "command": {
+    "init": {
+      "exact": true
+    },
+    "bootstrap": {
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
+    }
+  },
+  "packages": [
+    "packages/*"
+  ],
+  "ignoreChanges": [
+    "docs/**",
+    "packages/*/package-lock.json"
+  ],
+  "version": "7.4.2"
+}

@@ -10,11 +10,11 @@ npm install inferno-create-element
 ## Usage
 
 ```js
-import createElement from 'inferno-create-element';
-import Inferno from 'inferno';
+import { createElement } from 'inferno-create-element';
+import { render } from 'inferno';
 
-Inferno.render(createElement('div', { className: 'test' }, "I'm a child!"), document.body);
+render(
+  createElement('div', { className: 'test' }, "I'm a child!"),
+  document.getElementById("app")
+);
 ```
-
-
-

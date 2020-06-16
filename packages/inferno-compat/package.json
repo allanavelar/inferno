@@ -1,6 +1,6 @@
 {
   "name": "inferno-compat",
-  "version": "1.2.2",
+  "version": "7.4.2",
   "license": "MIT",
   "description": "Provides a compatibility with React codebases",
   "author": {
@@ -11,22 +11,48 @@
     "url": "https://github.com/infernojs/inferno/issues"
   },
   "homepage": "https://github.com/infernojs/inferno#readme",
-  "main": "inferno-compat.js",
+  "files": [
+    "index.js",
+    "prop-types.js",
+    "lib",
+    "dist/",
+    "README.md",
+    "package.json"
+  ],
+  "main": "index.js",
+  "module": "dist/index.esm.js",
+  "dev:module": "dist/index.dev.esm.js",
+  "typings": "dist/index.d.ts",
   "keywords": [
     "babel",
     "react",
     "inferno",
     "framework",
     "interfaces",
-    "user interfaces"
+    "user interfaces",
+    "vdom"
   ],
   "dependencies": {
-    "inferno": "1.2.2",
-    "inferno-component": "1.2.2",
-    "inferno-transition-group": "1.1.1",
-    "rc-css-transition-group-modern": "^2.1.6"
+    "inferno": "7.4.2",
+    "inferno-clone-vnode": "7.4.2",
+    "inferno-create-class": "7.4.2",
+    "inferno-create-element": "7.4.2",
+    "inferno-extras": "7.4.2"
   },
-  "peerDependencies": {
-    "proptypes": "0.14.3"
+  "devDependencies": {
+    "inferno-hyperscript": "7.4.2",
+    "inferno-shared": "7.4.2",
+    "inferno-test-utils": "7.4.2",
+    "inferno-vnode-flags": "7.4.2"
+  },
+  "rollup": {
+    "bundledDependencies": [
+      "inferno-shared",
+      "inferno-vnode-flags"
+    ],
+    "moduleName": "Inferno",
+    "moduleGlobals": {
+      "inferno": "Inferno"
+    }
   }
 }
